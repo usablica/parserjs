@@ -1,7 +1,7 @@
 # parser.js
 Javascript AST parser
 
-** Under development **
+**Under development**
 
 This is an attempt to extract the Parser service of Angluar.js and use it externally with other libararies
 or even in Vanillajs.
