@@ -681,36 +681,6 @@ function findConstantAndWatchExpressions(ast, $filter) {
   }
 }
 
-function getInputs(body) {
-  if (body.length !== 1) return;
-  var lastExpression = body[0].expression;
-  var candidate = lastExpression.toWatch;
-  if (candidate.length !== 1) return candidate;
-  return candidate[0] !== lastExpression ? candidate : undefined;
-}
-
-function isAssignable(ast) {
-  return ast.type === AST.Identifier || ast.type === AST.MemberExpression;
-}
-
-function assignableAST(ast) {
-  if (ast.body.length === 1 && isAssignable(ast.body[0].expression)) {
-    return {type: AST.AssignmentExpression, left: ast.body[0].expression, right: {type: AST.NGValueParameter}, operator: '='};
-  }
-}
-
-function isLiteral(ast) {
-  return ast.body.length === 0 ||
-      ast.body.length === 1 && (
-      ast.body[0].expression.type === AST.Literal ||
-      ast.body[0].expression.type === AST.ArrayExpression ||
-      ast.body[0].expression.type === AST.ObjectExpression);
-}
-
-function isConstant(ast) {
-  return ast.constant;
-}
-
 function ASTCompiler(astBuilder, $filter) {
   this.astBuilder = astBuilder;
   this.$filter = $filter;
