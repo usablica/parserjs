@@ -6,7 +6,7 @@ var objectValueOf = {}.constructor.prototype.valueOf;
 
 var isArray = Array.isArray;
 
-function getStringValue(name) {
+export function getStringValue(name) {
   // Property names must be strings. This means that non-string objects cannot be used
   // as keys in an object. Any non-string object, including a number, is typecasted
   // into a string via the toString method.
@@ -24,40 +24,40 @@ function getStringValue(name) {
   return name + '';
 }
 
-function createMap() {
+export function createMap() {
   return Object.create(null);
 }
 
-function getValueOf(value) {
+export function getValueOf(value) {
   return isFunction(value.valueOf) ? value.valueOf() : objectValueOf.call(value);
 }
 
-function isFunction(value) {
+export function isFunction(value) {
   return typeof value === 'function';
 }
 
-function isDefined(value) {
+export function isDefined(value) {
   return typeof value !== 'undefined';
 }
 
-function isNumber(value) {
+export function isNumber(value) {
   return typeof value === 'number';
 }
 
-function isString(value) {
+export function isString(value) {
   return typeof value === 'string';
 }
 
-var lowercase = function (string) {
+export function lowercase (string) {
   return isString(string) ? string.toLowerCase() : string;
 };
 
-function isObject(value) {
+export function isObject(value) {
   // http://jsperf.com/isobject4
   return value !== null && typeof value === 'object';
 }
 
-function isWindow(obj) {
+export function isWindow(obj) {
   return obj && obj.window === obj;
 }
 
@@ -114,7 +114,7 @@ function isArrayLike(obj) {
     (length >= 0 && ((length - 1) in obj || obj instanceof Array) || typeof obj.item === 'function');
 }
 
-function getInputs(body) {
+export function getInputs(body) {
   if (body.length !== 1) return;
   var lastExpression = body[0].expression;
   var candidate = lastExpression.toWatch;
@@ -122,25 +122,22 @@ function getInputs(body) {
   return candidate[0] !== lastExpression ? candidate : undefined;
 }
 
-function isAssignable(ast) {
-  return ast.type === AST.Identifier || ast.type === AST.MemberExpression;
+function isStateless($filter, filterName) {
+  var fn = $filter(filterName);
+  return !fn.$stateful;
 }
 
-function assignableAST(ast) {
-  if (ast.body.length === 1 && isAssignable(ast.body[0].expression)) {
-    return {type: AST.AssignmentExpression, left: ast.body[0].expression, right: {type: AST.NGValueParameter}, operator: '='};
-  }
+export function ifDefined(v, d) {
+  return typeof v !== 'undefined' ? v : d;
 }
 
-function isLiteral(ast) {
-  return ast.body.length === 0 ||
-      ast.body.length === 1 && (
-      ast.body[0].expression.type === AST.Literal ||
-      ast.body[0].expression.type === AST.ArrayExpression ||
-      ast.body[0].expression.type === AST.ObjectExpression);
+export function plusFn(l, r) {
+  if (typeof l === 'undefined') return r;
+  if (typeof r === 'undefined') return l;
+  return l + r;
 }
 
-function isConstant(ast) {
+export function isConstant(ast) {
   return ast.constant;
 }
 
@@ -178,7 +175,7 @@ function minErr(module, ErrorConstructor) {
   };
 }
 
-function copy(source, destination) {
+export function copy(source, destination) {
   var stackSource = [];
   var stackDest = [];
 
@@ -318,7 +315,7 @@ function copy(source, destination) {
   }
 }
 
-function forEach(obj, iterator, context) {
+export function forEach(obj, iterator, context) {
   var key, length;
   if (obj) {
     if (isFunction(obj)) {
@@ -362,12 +359,6 @@ function forEach(obj, iterator, context) {
 
 function ifDefined(v, d) {
   return typeof v !== 'undefined' ? v : d;
-}
-
-function plusFn(l, r) {
-  if (typeof l === 'undefined') return r;
-  if (typeof r === 'undefined') return l;
-  return l + r;
 }
 
 function isStateless($filter, filterName) {
