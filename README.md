@@ -13,7 +13,7 @@ or even in Vanillajs.
 ## Example
 
 ```javascript
-var parserjs = require('parser.js').parserjs;
+var parserjs = require('./parser.js').parserjs;
 
 var fn = parserjs.parse('1 == 1');
 
