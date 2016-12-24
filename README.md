@@ -13,9 +13,11 @@ or even in Vanillajs.
 ## Example
 
 ```javascript
-var equal = parserjs().parse('1 == 1');
+var parserjs = require('parser.js').parserjs;
 
-console.log(equal()) // true;
+var fn = parserjs.parse('1 == 1');
+
+fn(); // true
 ```
 
 ## Authors
