@@ -10,6 +10,14 @@ Javascript AST parser
 This is an attempt to extract the Parser service of Angluar.js and use it externally with other libararies
 or even in Vanillajs.
 
+## Installing
+
+Make sure you have the latest version of NPM installed on your machine, then run:
+
+```
+npm install parserjs
+```
+
 ## Example
 
 ```javascript
